@@ -1,0 +1,6 @@
+.create table mysparklogs ( second: int, day: int, path: string, version: int, class: string,
+                            logmessage: string, minute: int, year: int, hour: int, type: string,
+                            loglevel: string, message: string, processtimestamp: datetime , eventtimestamp: datetime
+                          )
+
+.create table mysparklogs ingestion json mapping 'basicmsg' '[{"column":"second","path":"$.second"},{"column":"day","path":"$.day"},{"column":"path","path":"$.path"},{"column":"version","path":"$.@version"},{"column":"class","path":"$.class"},{"column":"logmessage","path":"$.logmessage"},{"column":"minute","path":"$.minute"},{"column":"year","path":"$.year"},{"column":"hour","path":"$.hour"},{"column":"type","path":"$.type"},{"column":"loglevel","path":"$.loglevel"},{"column":"message","path":"$.message"},{"column":"processtimestamp","path":"$.processtimestamp"},{"column":"eventtimestamp","path":"$.eventtimestamp"}]'
