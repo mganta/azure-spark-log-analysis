@@ -26,7 +26,8 @@ Here are the steps involved:
         Scripts is at kusto_create_table.txt 
 
 6. Update the logstash config with the relevant parameters
-        Sample script at spark_logstash.conf
+
+	Sample script at spark_logstash.conf
 
 7. Run log stash. A sample script is provided here run_logstash.sh. You may need to tweak with JVM heap if needed
 
@@ -37,23 +38,23 @@ Below are a few queries. You can find the full query syntax here https://docs.mi
 
 Query to list 10 sample rows:
 
-mysparklogs
-| limit 10
+	mysparklogs
+	| limit 10
  
 
 Query to count total errors seen:
 
-mysparklogs
-| where loglevel == "ERROR"
-| count
+	mysparklogs
+	| where loglevel == "ERROR"
+	| count
 
 Query to get count of errors per cluster, per class:
 
-mysparklogs
-| where loglevel == "ERROR"
-| summarize event_count=count() by class, loglevel, jobcluster = tostring(split(path,"/")[5]), logmessage 
-| order by event_count , class , jobcluster
-| render table 
+	mysparklogs
+	| where loglevel == "ERROR"
+	| summarize event_count=count() by class, loglevel, jobcluster = tostring(split(path,"/")[5]), logmessage 
+	| order by event_count , class , jobcluster
+	| render table 
 
 
 
