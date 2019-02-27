@@ -1,8 +1,17 @@
-**Analyzing Databricks spark logs on Azure**
+## **Analyzing Databricks spark logs on Azure**
 
-Analyzing spark logs on Azure Databricks can be challanging especially when we have more than one cluster and different pipelines and/or stages of pipelines run on different clusters. This is an attempt to centralize the logs to a time-series explorer for faster analysis. The current setup wants a fixed location and tails the log files from both driver and executor.
+Analyzing spark logs on Azure Databricks can be challanging especially when we have more than one cluster and different pipelines and/or stages of pipelines run on different clusters. This is an attempt to centralize the logs to a time-series explorer for faster analysis. The current setup only looks for a fixed location and tails the log files from both driver and executor (It could be made more generic)
 
-Here are the steps involved:
+### Components:
+
+		1. Azure Databricks
+		2. Azure Blob Storage
+		3. Azure VM
+		4. Log stash
+		5. Fuse Blob
+		6. Azure Data Explorer (Kusto)
+
+### Here are the steps involved:
 
 1. Mount a blob container to databricks workspace. Make sure that both are in the same Azure region
 
@@ -25,7 +34,7 @@ Here are the steps involved:
 
        Scripts is at kusto_create_table.txt 
 
-6. Update the logstash config with the relevant parameters
+6. Update the logstash config with the relevant parameters. Improvement needed in the grok and filters. Also could use a setup involving filebeat but for now limiting to logstash.
 
        Sample script at spark_logstash.conf
 
@@ -36,7 +45,7 @@ Here are the steps involved:
 8. Run your spark jobs/clusters and now you can query from kusto the data
 
 
-**Below are a few queries**
+### **Below are a few queries**
 
 You can find the full query syntax here https://docs.microsoft.com/en-us/azure/kusto/query/
 
